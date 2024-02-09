@@ -41,6 +41,10 @@ test_data = torchvision.datasets.MNIST(
 # For illustration we only use 2 image from dataset
 N = 2
 n_classes = 10
+print("test_data--> ", test_data.data[0])
+print(type(test_data.data[:N]))
+print("test_label--> ", test_data.targets[0])
+print(type(test_data.targets[:N]))
 image = test_data.data[:N].view(N,1,28,28)
 true_label = test_data.targets[:N]
 # Convert to float
@@ -63,6 +67,7 @@ image = BoundedTensor(image, ptb)
 # Get model prediction as usual
 pred = lirpa_model(image)
 label = torch.argmax(pred, dim=1).cpu().detach().numpy()
+print(type(label))
 print('Demonstration 1: Bound computation and comparisons of different methods.\n')
 
 ## Step 5: Compute bounds for final output
