@@ -87,8 +87,7 @@ my_input = BoundedTensor(my_input, ptb)
 
 pred = model(my_input)
 label = [1 if pred[i][0] < pred[i][1] else 0 for i in range(N)]
-print(pred)
-print(label)
+
 
 for method in [
         'IBP', 'IBP+backward (CROWN-IBP)', 'backward (CROWN)',
@@ -143,8 +142,7 @@ for method in [
 lirpa_model = BoundedModule(model, torch.empty_like(my_input), device=my_input.device)
 C = torch.zeros(size=(N, 1, n_classes), device=my_input.device)
 groundtruth = my_input_label.to(device=my_input.device).unsqueeze(1)
-print("groundtruth -->", groundtruth)
-print(groundtruth.shape)
+
 target_label = (groundtruth + 1) % n_classes
 C.scatter_(dim=2, index=groundtruth, value=1.0)
 C.scatter_(dim=2, index=target_label, value=-1.0)
