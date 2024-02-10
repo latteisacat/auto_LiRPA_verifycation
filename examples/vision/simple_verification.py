@@ -122,6 +122,7 @@ for method in [
 lirpa_model = BoundedModule(model, torch.empty_like(image), device=image.device)
 C = torch.zeros(size=(N, 1, n_classes), device=image.device)
 groundtruth = true_label.to(device=image.device).unsqueeze(1).unsqueeze(1)
+print("groundtruth -->", groundtruth)
 target_label = (groundtruth + 1) % n_classes
 C.scatter_(dim=2, index=groundtruth, value=1.0)
 C.scatter_(dim=2, index=target_label, value=-1.0)
