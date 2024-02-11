@@ -71,23 +71,21 @@ with torch.no_grad():  # 가중치 설정 시에는 기울기를 추적할 필�
     model.fc2.bias = nn.Parameter(torch.tensor([-3.0611]))  # 두 번째 레이어의 편향을 설정합니다.
 
 my_input = torch.tensor([
-    [0.3456, 0.4032],
-    [0.6356, 0.7032],
-    [0.1101, 0.1234],
-    [0.9393, 0.1102],
-    [0.4002, 0.5567],
-    [0.2234, 0.7654]
+    [0.24999, 0.24999],
+    [0.74999, 0.74999],
+    [0.24999, 0.74999],
+    [0.74999, 0.24999],
 ], dtype=torch.float32)
-my_input_label = torch.tensor([[0], [0], [0], [1], [1], [1]], dtype=torch.int64)
+my_input_label = torch.tensor([[0], [0], [1], [1]], dtype=torch.int64)
 N = len(my_input)
 n_classes = 2  # true(1) or false(0)의 2 개의 label을 가짐
 model = BoundedModule(model, my_input)
-ptb = PerturbationLpNorm(norm=np.inf, eps=0.1)
+# 정확하진 않지만 아마 기존 인풋에서 +- 0.25를 함으로써 교수님께서 원하는 범위 측정이 가능할 것으로 예상
+ptb = PerturbationLpNorm(norm=np.inf, eps=0.24999)
 my_input = BoundedTensor(my_input, ptb)
 
 pred = model(my_input)
 label = [1 if pred[i][0] < pred[i][1] else 0 for i in range(N)]
-
 
 for method in [
         'IBP', 'IBP+backward (CROWN-IBP)', 'backward (CROWN)',
