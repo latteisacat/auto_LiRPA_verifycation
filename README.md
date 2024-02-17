@@ -31,4 +31,4 @@ lb, ub = model.compute_bounds(x=(my_input,), method="backward")
 4. BoundedTensor(my_input, ptb)로 input에 perturbation을 적용시킵니다.
 5. 이제 model.compute_bounds를 통해 각 input에 대하여 lowerbound와 upperbound를 값으로 받을 수 있습니다. 이 xor 신경망의 경우 method를 별도로 지정하지 않아도 됩니다.
 ## 주의사항
-+ 반드시 출력에 해당하는 label이 있어야 합니다. xor의 경우에는 0(false) 1(true)의 2개의 label를 가지므로 총 2개의 출력노드를 가져야 합니다.
++ 반드시 출력에 해당하는 label이 있어야 합니다. xor의 경우에는 0(false) 1(true)의 2개의 label을 가지므로 총 2개의 출력노드를 가져야 합니다.
